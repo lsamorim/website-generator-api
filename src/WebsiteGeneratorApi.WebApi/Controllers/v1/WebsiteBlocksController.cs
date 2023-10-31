@@ -38,8 +38,6 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
             return StatusCode((int)HttpStatusCode.Created, new { Key = key });
         }
 
-        
-
         [HttpGet("{key}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
