@@ -1,5 +1,4 @@
 ﻿using Domain.Components.Blocks;
-using System.Text.Json;
 
 namespace Application.Boundaries.Services
 {
@@ -8,5 +7,9 @@ namespace Application.Boundaries.Services
         Task CreateAsync(string key, IEnumerable<IBlock> blocks, CancellationToken cancellationToken);
 
         Task<string> GetAsync(string key, CancellationToken cancellationToken);
+
+        Task UpdateAsync(string key, IEnumerable<IBlock> blocks, CancellationToken cancellationToken);
+
+        void Delete(string key);
     }
 }

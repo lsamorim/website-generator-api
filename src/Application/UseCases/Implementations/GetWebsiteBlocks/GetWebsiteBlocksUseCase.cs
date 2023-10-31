@@ -3,7 +3,7 @@ using Application.Services.Interfaces;
 using Application.UseCases.Interfaces;
 using Domain.Components.Blocks;
 
-namespace Application.UseCases.Implementations.GetWebsiteBlocksUseCase
+namespace Application.UseCases.Implementations.GetWebsiteBlocks
 {
     public class GetWebsiteBlocksUseCase : IGetWebsiteBlocksUseCase
     {

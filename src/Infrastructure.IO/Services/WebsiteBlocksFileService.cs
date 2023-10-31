@@ -2,7 +2,6 @@
 using Domain.Components.Blocks;
 using Infrastructure.IO.Helpers;
 using Newtonsoft.Json;
-using System.IO;
 using System.Text;
 
 namespace Infrastructure.IO.Services
@@ -49,6 +48,23 @@ namespace Infrastructure.IO.Services
                 throw new Exception($"File '{fileName}' does not exist");
 
             return await File.ReadAllTextAsync(filePath, cancellationToken);
+        }
+
+        public async Task UpdateAsync(string key, IEnumerable<IBlock> blocks, CancellationToken cancellationToken)
+        {
+            Delete(key);
+            await CreateAsync(key, blocks, cancellationToken);
+        }
+
+        public void Delete(string key)
+        {
+            var fileName = GetFileName(key);
+            var filePath = GetFilePath(key);
+
+            if (!File.Exists(filePath))
+                throw new Exception($"File '{fileName}' does not exist");
+
+            File.Delete(filePath);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Application.UseCases.Implementations.CreateWebsiteBlocks.Models;
+using Application.UseCases.Implementations.RemoveWebsiteBlocksSection.Models;
 using Application.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Text.Json;
 using WebsiteGeneratorApi.WebApi.Helpers;
 
 namespace WebsiteGeneratorApi.WebApi.Controllers.v1
@@ -46,5 +46,22 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
             return Ok(output);
         }
 
+        [HttpDelete("{key}/sections/{sectionId}")]
+        public async Task<IActionResult> DeleteAsync(
+            [FromRoute] string key,
+            [FromRoute] int sectionId,
+            [FromServices] IRemoveWebsiteBlocksSectionUseCase useCase,
+            CancellationToken cancellationToken)
+        {
+            if (!KeyValidatorHelper.IsValid(key))
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new { Message = "Invalid key" });
+            }
+
+            var input = new RemoveWebsiteBlocksSectionInput(key, sectionId);
+            await useCase.ExecuteAsync(input, cancellationToken);
+
+            return Ok();
+        }
     }
 }
