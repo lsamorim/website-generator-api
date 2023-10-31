@@ -1,5 +1,8 @@
-# website-generator-api
+# Website Generator API
 
+### How to test API
+
+#### Create new Website Blocks
 ```
 POST https://localhost:7220/api/v1/WebsiteBlocks?key={{KEY}}
 [
