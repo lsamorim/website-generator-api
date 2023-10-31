@@ -2,10 +2,13 @@
 using Application.UseCases.Implementations.RemoveWebsiteBlocksSection.Models;
 using Application.UseCases.Implementations.UpdateWebsiteBlocksSection.Models;
 using Application.UseCases.Interfaces;
+using Domain.Components.Blocks;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using WebsiteGeneratorApi.WebApi.Helpers;
+using WebsiteGeneratorApi.WebApi.Models.v1.Examples;
 
 namespace WebsiteGeneratorApi.WebApi.Controllers.v1
 {
@@ -14,6 +17,7 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
     public class WebsiteBlocksController : ControllerBase
     {
         [HttpPost]
+        [SwaggerRequestExample(typeof(List<IBlock>), typeof(CreateWebsiteBlocksRequestBodyExample))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -33,6 +37,8 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
 
             return StatusCode((int)HttpStatusCode.Created, new { Key = key });
         }
+
+        
 
         [HttpGet("{key}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -54,6 +60,7 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
         }
 
         [HttpPut("{key}/sections/{sectionId}")]
+        [SwaggerRequestExample(typeof(IBlock), typeof(UpdateWebsiteBlocksSectionRequestBodyExample))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
