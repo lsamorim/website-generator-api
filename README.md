@@ -71,6 +71,26 @@ GET https://localhost:7220/api/v1/WebsiteBlocks/{{KEY}}
 #### Update a section
 ```
 PUT https://localhost:7220/api/v1/WebsiteBlocks/{{KEY}}/sections/{{SECTION_ID}}
+{
+  "BlockOrder": 0,
+  "BusinessName": "My NEW Business",
+  "LogoVisible": true,
+  "NavigationMenu": {
+    "MenuItems": [
+      {
+        "Text": "About Us",
+        "Link": "/about"
+      }
+    ]
+  },
+  "Button": {
+    "Text": "555-555-5555",
+    "Display": true,
+    "Icon": "phone",
+    "Event": "onClick"
+  },
+  "Id": "HeaderBlock"
+}
 ```
 
 #### Remove a section
