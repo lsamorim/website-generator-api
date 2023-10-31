@@ -1,13 +1,15 @@
-﻿using Domain.Components.Blocks;
+﻿using System.Text.Json;
 
 namespace Application.UseCases.Implementations.CreateWebsiteBlocks.Models
 {
     public class CreateWebsiteBlocksInput
     {
-        public IEnumerable<Block> Blocks { get; } = Array.Empty<Block>();
+        public string Key { get; }
+        public List<dynamic> Blocks { get; } = new List<dynamic>();
 
-        public CreateWebsiteBlocksInput(IEnumerable<Block> blocks)
+        public CreateWebsiteBlocksInput(string key, List<dynamic> blocks)
         {
+            Key = key;
             Blocks = blocks;
         }
     }

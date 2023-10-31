@@ -1,6 +1,6 @@
 ﻿namespace Domain.Components.Blocks
 {
-    public class HeroBlock : Block
+    public class HeroBlock : IBlock
     {
         public static string Id => nameof(HeroBlock);
         public int BlockOrder { get; set; }

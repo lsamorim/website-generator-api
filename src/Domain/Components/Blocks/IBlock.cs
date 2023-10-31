@@ -1,6 +1,6 @@
 ﻿namespace Domain.Components.Blocks
 {
-    public interface Block
+    public interface IBlock
     {
         public int BlockOrder { get; set; }
     }

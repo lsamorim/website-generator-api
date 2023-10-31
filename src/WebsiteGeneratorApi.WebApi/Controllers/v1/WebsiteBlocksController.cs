@@ -1,13 +1,10 @@
-﻿using Application.Services.Implementations;
-using Application.Services.Interfaces;
-using Application.UseCases.Implementations.CreateWebsiteBlocks.Models;
+﻿using Application.UseCases.Implementations.CreateWebsiteBlocks.Models;
 using Application.UseCases.Interfaces;
-using Domain;
-using Domain.Components.Blocks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Text.Json;
+using WebsiteGeneratorApi.WebApi.Helpers;
 
 namespace WebsiteGeneratorApi.WebApi.Controllers.v1
 {
@@ -15,28 +12,39 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
     [ApiController]
     public class WebsiteBlocksController : ControllerBase
     {
-        private readonly IBlockTypeMapper _blockTypeMapper;
-
-        public WebsiteBlocksController(IBlockTypeMapper blockTypeMapper)
-        {
-            _blockTypeMapper = blockTypeMapper;
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateAsync(
-            [FromQuery] string key,
-            [FromBody] List<dynamic> blocks,
+            [Required][FromQuery] string key,
+            [Required][FromBody] List<dynamic> blocks,
             [FromServices] ICreateWebsiteBlocksUseCase useCase,
             CancellationToken cancellationToken)
         {
-            var blocksList = _blockTypeMapper.Map(blocks);
+            if (!KeyValidatorHelper.IsValid(key))
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new { Message = "Invalid key" });
+            }
 
-            var input = new CreateWebsiteBlocksInput(blocksList);
-
+            var input = new CreateWebsiteBlocksInput(key, blocks);
             await useCase.ExecuteAsync(input, cancellationToken);
 
-            var result = JsonConvert.SerializeObject(input.Blocks);
-            return Ok(result);
+            return Ok(input.Key);
         }
+
+        [HttpGet("{key}")]
+        public async Task<IActionResult> GetAsync(
+            [FromRoute] string key,
+            [FromServices] IGetWebsiteBlocksUseCase useCase,
+            CancellationToken cancellationToken)
+        {
+            if (!KeyValidatorHelper.IsValid(key))
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new { Message = "Invalid key" });
+            }
+
+            var output = await useCase.ExecuteAsync(key, cancellationToken);
+
+            return Ok(output);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Implementations.CreateWebsiteBlocks;
+using Application.UseCases.Implementations.GetWebsiteBlocksUseCase;
 using Application.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +10,8 @@ namespace Application.Installers
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             return services
-                .AddScoped<ICreateWebsiteBlocksUseCase, CreateWebsiteBlocksUseCase>();
+                .AddScoped<ICreateWebsiteBlocksUseCase, CreateWebsiteBlocksUseCase>()
+                .AddScoped<IGetWebsiteBlocksUseCase, GetWebsiteBlocksUseCase>();
         }
     }
 }
