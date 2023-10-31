@@ -22,7 +22,7 @@ namespace Application.UseCases.Implementations.CreateWebsiteBlocks
             CreateWebsiteBlocksInput input,
             CancellationToken cancellationToken)
         {
-            var blocks = _blockTypeMapper.Map(input.Blocks);
+            var blocks = _blockTypeMapper.MapBlocks(input.Blocks);
             await _websiteBlocksFileService.CreateAsync(input.Key, blocks, cancellationToken);
         }
     }

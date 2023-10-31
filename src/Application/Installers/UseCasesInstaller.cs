@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Implementations.CreateWebsiteBlocks;
 using Application.UseCases.Implementations.GetWebsiteBlocks;
 using Application.UseCases.Implementations.RemoveWebsiteBlocksSection;
+using Application.UseCases.Implementations.UpdateWebsiteBlocksSection;
 using Application.UseCases.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +14,8 @@ namespace Application.Installers
             return services
                 .AddScoped<ICreateWebsiteBlocksUseCase, CreateWebsiteBlocksUseCase>()
                 .AddScoped<IGetWebsiteBlocksUseCase, GetWebsiteBlocksUseCase>()
-                .AddScoped<IRemoveWebsiteBlocksSectionUseCase, RemoveWebsiteBlocksSectionUseCase>();
+                .AddScoped<IRemoveWebsiteBlocksSectionUseCase, RemoveWebsiteBlocksSectionUseCase>()
+                .AddScoped<IUpdateWebsiteBlocksSectionUseCase, UpdateWebsiteBlocksSectionUseCase>();
         }
     }
 }

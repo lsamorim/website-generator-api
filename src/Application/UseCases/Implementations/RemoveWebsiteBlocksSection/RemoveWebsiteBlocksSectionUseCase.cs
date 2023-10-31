@@ -23,7 +23,7 @@ namespace Application.UseCases.Implementations.RemoveWebsiteBlocksSection
             CancellationToken cancellationToken)
         {
             var textBlocks = await _websiteBlocksFileService.GetAsync(input.Key, cancellationToken);
-            var blocks = _blockTypeMapper.Map(textBlocks);
+            var blocks = _blockTypeMapper.MapTextBlocks(textBlocks);
 
             blocks = blocks.Where(b => b.BlockOrder != input.SectionId);
 

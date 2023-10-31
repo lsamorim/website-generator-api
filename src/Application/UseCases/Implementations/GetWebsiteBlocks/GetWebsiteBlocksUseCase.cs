@@ -19,7 +19,7 @@ namespace Application.UseCases.Implementations.GetWebsiteBlocks
         public async Task<IEnumerable<IBlock>> ExecuteAsync(string input, CancellationToken cancellationToken)
         {
             var textBlocks = await _websiteBlocksFileService.GetAsync(input, cancellationToken);
-            return _blockTypeMapper.Map(textBlocks);
+            return _blockTypeMapper.MapTextBlocks(textBlocks);
         }
     }
 }

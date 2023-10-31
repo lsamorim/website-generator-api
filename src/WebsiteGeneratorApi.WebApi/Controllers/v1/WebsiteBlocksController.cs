@@ -1,5 +1,6 @@
 ﻿using Application.UseCases.Implementations.CreateWebsiteBlocks.Models;
 using Application.UseCases.Implementations.RemoveWebsiteBlocksSection.Models;
+using Application.UseCases.Implementations.UpdateWebsiteBlocksSection.Models;
 using Application.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +28,7 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
             var input = new CreateWebsiteBlocksInput(key, blocks);
             await useCase.ExecuteAsync(input, cancellationToken);
 
-            return Ok(input.Key);
+            return StatusCode((int)HttpStatusCode.Created, new { Key = key });
         }
 
         [HttpGet("{key}")]
@@ -44,6 +45,25 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
             var output = await useCase.ExecuteAsync(key, cancellationToken);
 
             return Ok(output);
+        }
+
+        [HttpPut("{key}/sections/{sectionId}")]
+        public async Task<IActionResult> UpdateAsync(
+            [FromRoute] string key,
+            [FromRoute] int sectionId,
+            [Required][FromBody] dynamic block,
+            [FromServices] IUpdateWebsiteBlocksSectionUseCase useCase,
+            CancellationToken cancellationToken)
+        {
+            if (!KeyValidatorHelper.IsValid(key))
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, new { Message = "Invalid key" });
+            }
+
+            var input = new UpdateWebsiteBlocksSectionInput(key, sectionId, block);
+            await useCase.ExecuteAsync(input, cancellationToken);
+
+            return Ok();
         }
 
         [HttpDelete("{key}/sections/{sectionId}")]

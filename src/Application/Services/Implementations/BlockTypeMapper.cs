@@ -23,24 +23,21 @@ namespace Application.Services.Implementations
                 type => type);
         }
 
-        public IEnumerable<IBlock> Map(List<dynamic> blocks)
+        public IEnumerable<IBlock> MapBlocks(List<dynamic> blocks)
         {
-            return blocks.Select(block =>
-            {
-                var typeId = block.Id.ToString();
-                return (IBlock)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(block), BlockTypeMapping[typeId]);
-            });
+            return blocks.Select(MapBlock);
         }
 
-        public IEnumerable<IBlock> Map(string textBlocks)
+        public IEnumerable<IBlock> MapTextBlocks(string textBlocks)
         {
             var dynamicBlocks = JsonConvert.DeserializeObject<IEnumerable<dynamic>>(textBlocks);
 
-            return dynamicBlocks.Select(block =>
-            {
-                var typeId = block.Id.ToString();
-                return (IBlock)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(block), BlockTypeMapping[typeId]);
-            });
+            return dynamicBlocks.Select(MapBlock);
+        }
+        public IBlock MapBlock(dynamic block)
+        {
+            var typeId = block.Id.ToString();
+            return (IBlock)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(block), BlockTypeMapping[typeId]);
         }
     }
 }
