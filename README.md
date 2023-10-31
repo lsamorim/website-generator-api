@@ -62,3 +62,18 @@ POST https://localhost:7220/api/v1/WebsiteBlocks?key={{KEY}}
 ]
 
 ```
+
+#### Get Website Blocks by key
+```
+GET https://localhost:7220/api/v1/WebsiteBlocks/{{KEY}}
+```
+
+#### Update a section
+```
+PUT https://localhost:7220/api/v1/WebsiteBlocks/{{KEY}}/sections/{{SECTION_ID}}
+```
+
+#### Remove a section
+```
+DELETE https://localhost:7220/api/v1/WebsiteBlocks/{{KEY}}/sections/{{SECTION_ID}}
+```
