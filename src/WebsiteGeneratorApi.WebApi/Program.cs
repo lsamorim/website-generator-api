@@ -1,6 +1,7 @@
 using Application.Installers;
 using Infrastructure.IO.Helpers;
 using Infrastructure.IO.Installers;
+using WebsiteGeneratorApi.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,5 +34,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();

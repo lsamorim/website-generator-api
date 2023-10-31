@@ -14,6 +14,9 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
     public class WebsiteBlocksController : ControllerBase
     {
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateAsync(
             [Required][FromQuery] string key,
             [Required][FromBody] List<dynamic> blocks,
@@ -32,6 +35,9 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
         }
 
         [HttpGet("{key}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAsync(
             [FromRoute] string key,
             [FromServices] IGetWebsiteBlocksUseCase useCase,
@@ -48,6 +54,9 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
         }
 
         [HttpPut("{key}/sections/{sectionId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAsync(
             [FromRoute] string key,
             [FromRoute] int sectionId,
@@ -67,6 +76,9 @@ namespace WebsiteGeneratorApi.WebApi.Controllers.v1
         }
 
         [HttpDelete("{key}/sections/{sectionId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAsync(
             [FromRoute] string key,
             [FromRoute] int sectionId,
